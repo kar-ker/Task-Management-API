@@ -18,6 +18,8 @@ test:
   only:
     - merge_requests
     - main
+  tags:
+    - shared
 
 deploy:
   stage: deploy
@@ -35,3 +37,5 @@ deploy:
     - ssh "$SSH_USER@$SSH_HOST" "cd '$SSH_APP_DIR' && docker compose -p express1 up -d --remove-orphans --build --force-recreate"
   only:
     - main
+  tags:
+    - shared
