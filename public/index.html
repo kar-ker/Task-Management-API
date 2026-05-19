@@ -1,0 +1,21 @@
+<!-- public/index.html -->
+<!DOCTYPE html>
+<html>
+<head><title>Task API Test</title></head>
+<body>
+  <h1>Tasks</h1>
+  <ul id="tasks"></ul>
+  <script>
+    fetch("/api/v1/tasks")
+      .then((res) => res.json())
+      .then((tasks) => {
+        const ul = document.getElementById("tasks");
+        tasks.forEach((t) => {
+          const li = document.createElement("li");
+          li.textContent = `${t.title} [${t.status}]`;
+          ul.appendChild(li);
+        });
+      });
+  </script>
+</body>
+</html>
