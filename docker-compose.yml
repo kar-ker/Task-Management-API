@@ -3,11 +3,11 @@ services:
     build: .
     ports:
       - "3000:3000"
+    container_name: expressjs-backend
     environment:
       - PORT=3000
       - JWT_SECRET=${JWT_SECRET}
       - DB_PATH=/data/express1.db
-      - CORS_ORIGIN=http://localhost:5173
     volumes:
       - dbdata:/data
 

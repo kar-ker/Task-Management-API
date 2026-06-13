@@ -1,25 +1,35 @@
 # Express.js Backend
 
-This project is an Express.js + TypeScript backend. It uses SQLite for persistence, JWT access tokens, refresh tokens, and protected CRUD endpoints.
+Express.js + TypeScript backend for a to-do style API. It uses SQLite for persistence, JWT access tokens, refresh tokens, and protected CRUD endpoints.
 
-- **Production backend**: https://kerkaa-express.proxy.itcollege.ee
+Deployed API: [https://kerkaa-express.proxy.itcollege.ee](https://kerkaa-express.proxy.itcollege.ee)
+Deployed frontend apps that use the backend:
+- React version [kerkaa-react-app-express.proxy.itcollege.ee](kerkaa-react-app-express.proxy.itcollege.ee)
+- Vue version [kerkaa-vue-app-express.proxy.itcollege.ee](kerkaa-vue-app-express.proxy.itcollege.ee)
 
-## Local development
+## Features
 
-Install dependencies and run the server:
+- Authentication endpoints for register, login, and token refresh
+- Protected CRUD endpoints for list items, todo tasks, categories, and priorities
+- SQLite persistence with automatic migrations
+- JWT-based authorization for API access
+- Docker support for local development and deployment
+
+## Setup
 
 ```bash
 npm install
 npm run dev
 ```
 
-The API runs on `http://localhost:3001` by default in development.
+The API runs on [http://localhost:3001](http://localhost:3001) by default.
 
-## Build and test
+## Development
 
 ```bash
 npm run build
 npm test
+npm run start
 ```
 
 ## Docker
@@ -30,55 +40,25 @@ Build the image:
 docker build -t express1-api .
 ```
 
-Run the container with a local volume for SQLite data:
+Run the container with Docker Compose:
 
 ```bash
 docker compose up -d --build
 ```
 
-The container listens on port `3000`.
+The container listens on port 3000.
 
-## GitLab CI deploy to a VPS
+## Configuration
 
-The repository includes a `.gitlab-ci.yml` that:
+The server reads the following environment variables:
 
-1. Runs `npm ci`, `npm test`, and `npm run build` on merge requests and `main`.
-2. Builds the backend image in the pipeline.
-3. SSHes into your VPS on `main` and runs `docker compose` there.
+- `JWT_SECRET` for signing access tokens
+- `DB_PATH` for the SQLite database file path
+- `PORT` to override the default development port
 
-### Required GitLab CI variables
-
-Set these variables in your GitLab project:
-
-```text
-SSH_PRIVATE_KEY
-SSH_KNOWN_HOSTS
-SSH_USER
-SSH_HOST
-SSH_APP_DIR
-```
-
-### VPS prerequisites
-
-Make sure the VPS has:
-
-- Docker installed
-- Docker Compose installed
-- A checkout of this repository at the path in `SSH_APP_DIR`
-- A `.env` file or exported environment variables containing at least `JWT_SECRET`
-
-### Example deployment flow
-
-When you push to `main`, GitLab will connect to the VPS over SSH and run:
-
-```bash
-docker compose -p express1 up -d --remove-orphans --build --force-recreate
-```
-
-That rebuilds the backend container and restarts it in place.
+SQLite data is stored in the Docker volume `express1-data`.
 
 ## Notes
 
-- SQLite data is stored in the Docker volume named `express1-data`.
-- The runtime container expects `JWT_SECRET` to be provided.
-- CORS defaults to `http://localhost:5173` unless you override `CORS_ORIGIN`.
+- CORS allows local frontend development from `http://localhost:5173` and `http://localhost:3001`, plus `*.proxy.itcollege.ee` hosts.
+- The public API is intended to be exercised through a client, such as Postman, Thunder Client, or a frontend app.
