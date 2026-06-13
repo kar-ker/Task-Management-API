@@ -5,8 +5,8 @@ Express.js + TypeScript backend for a to-do style API. It uses SQLite for persis
 Deployed API: [https://kerkaa-express.proxy.itcollege.ee](https://kerkaa-express.proxy.itcollege.ee)
 
 Deployed frontend apps that use the backend:
-- React version [kerkaa-react-app-express.proxy.itcollege.ee](kerkaa-react-app-express.proxy.itcollege.ee)
-- Vue version [kerkaa-vue-app-express.proxy.itcollege.ee](kerkaa-vue-app-express.proxy.itcollege.ee)
+- React version [https://kerkaa-react-app-express.proxy.itcollege.ee](https://kerkaa-react-app-express.proxy.itcollege.ee)
+- Vue version [https://kerkaa-vue-app-express.proxy.itcollege.ee](https://kerkaa-vue-app-express.proxy.itcollege.ee)
 
 ## Features
 
